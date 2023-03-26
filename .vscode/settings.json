@@ -1,0 +1,13 @@
+{
+  "emmet.includeLanguages": {
+    "rust": "html"
+  },
+  "rust-analyzer.linekedProjects": [
+    "src-tauri/Cargo.toml",
+    {
+      "main": "src/main.rs",
+      "edition": 2018,
+      "deps": []
+    }
+  ]
+}
