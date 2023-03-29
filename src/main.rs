@@ -1,12 +1,13 @@
-mod app;
+mod chat_app;
+mod components;
 
-use app::*;
+use chat_app::*;
 use leptos::*;
 
 fn main() {
     mount_to_body(|cx| {
         view! { cx,
-            <App/>
+            <ChatApp />
         }
     })
 }

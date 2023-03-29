@@ -1,15 +1,20 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use chatgpt::prelude::*;
+use std::env;
+
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+async fn exec_prompt(prompt: String) -> String {
+    let client = ChatGPT::new(env::var("API_KEY").unwrap()).unwrap();
+    let response = client.send_message(prompt).await.unwrap();
+
+    response.message().content.clone()
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![exec_prompt])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
